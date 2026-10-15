@@ -1,0 +1,9 @@
+{
+  "asr_backend": "local",
+  "choose_asr": true,
+  "colab_browser": true,
+  "model_root": "transcription_models",
+  "correction_enabled": false,
+  "model": "",
+  "manage_installed_folders": false
+}
