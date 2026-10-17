@@ -76,8 +76,10 @@ Checkpoints and support workbooks are retained for resuming the shared pipeline.
 
 ## Optional configuration
 
-Copy `pipeline_config.example.json` to `pipeline_config.json` only if you need to
-override defaults. This local configuration is ignored by Git. See
+Use menu **5** to connect ChatGPT, select a model and enable text correction
+automatically. No manual configuration is needed for this setup.
+Copy `pipeline_config.example.json` to `pipeline_config.json` only for advanced
+overrides. This local configuration is ignored by Git. See
 [configuration](docs/CONFIGURATION.md) for text correction, Colab, and model paths.
 
 ## Limitations

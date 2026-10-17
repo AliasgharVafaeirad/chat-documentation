@@ -98,8 +98,9 @@ def run():
     except (OSError, RuntimeError) as error:
         print("Report library update deferred:", error)
     while True:
+        config = load_config(BASE)
         print(
-            "\nCHAT DOCUMENTATION\n1) Start a separate new report\n2) Continue processing a saved backup\n3) Import downloaded Colab results\n4) Rebuild Excel from saved results\n5) Optional text-correction connection\n6) Complete capture of a selected report\n7) Consolidate reports from the same chat\n8) Run automated Colab for a saved report\n9) Repair a selected report\n10) Open reports library\n11) Open a report folder or Excel\n12) Audio to readable text (no chat required)\n0) Exit"
+            "\nCHAT DOCUMENTATION\n1) Start a separate new report\n2) Continue processing a saved backup\n3) Import downloaded Colab results\n4) Rebuild Excel from saved results\n5) Set up ChatGPT text correction\n6) Complete capture of a selected report\n7) Consolidate reports from the same chat\n8) Run automated Colab for a saved report\n9) Repair a selected report\n10) Open reports library\n11) Open a report folder or Excel\n12) Audio to readable text (no chat required)\n0) Exit"
         )
         try:
             choice = input("Number: ").strip()
@@ -170,10 +171,10 @@ def run():
                         "--auto-colab",
                     )
             elif choice == "5":
-                print(
-                    "Experimental Windows integration. Availability depends on your account; see docs/CONFIGURATION.md."
-                )
-                subprocess.call([config["chatgpt_python"], "-u", config["chatgpt_script"], "login"])
+                from correction_setup import setup
+
+                setup(BASE)
+                config = load_config(BASE)
             elif choice == "9":
                 folder = choose_backup()
                 if folder:

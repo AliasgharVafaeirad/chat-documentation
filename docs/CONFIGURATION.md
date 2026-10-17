@@ -26,16 +26,18 @@ not been made portable to non-Windows systems. It is not an official SDK and its
 authentication flow may be unavailable to a particular account or change.
 There is no API-key fallback and no promise of free or unlimited account access.
 
-To try it on a supported account, choose menu 5, then inspect available models:
+Choose menu **5: Set up ChatGPT text correction**. The program checks an existing
+connection first. If sign-in is needed, it opens the sign-in flow and continues
+automatically afterward. Select a model number (or press Enter for the displayed
+default). The program saves settings and enables correction automatically.
+No configuration-file editing or separate model-list command is required.
+The connection check verifies access to the model catalog; it does not send a
+test transcript or guarantee that a later generation request will succeed.
 
-```powershell
-.\.venv\Scripts\python.exe integrations\chatgpt_plan\chatgpt_plan.py models
-```
-
-Set `model` to an exact identifier returned by your account and
-`correction_enabled` to true in local configuration. Do not commit credentials
-or account-specific model catalog files. If unavailable, leave correction off;
-raw Whisper transcripts remain usable.
+Choose menu 5 again to change the model, recheck the connection or turn correction
+off. Cancelling or failing setup preserves existing settings. Do not commit
+credentials or account-specific model catalog files. If unavailable, raw Whisper
+transcripts remain usable.
 
 Correction transmits raw text and candidate neighboring chat text to the selected
 service. Independent audio has no neighboring chat context. Audio files are not
