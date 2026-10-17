@@ -100,7 +100,7 @@ def run():
     while True:
         config = load_config(BASE)
         print(
-            "\nCHAT DOCUMENTATION\n1) Start a separate new report\n2) Continue processing a saved backup\n3) Import downloaded Colab results\n4) Rebuild Excel from saved results\n5) Set up ChatGPT text correction\n6) Complete capture of a selected report\n7) Consolidate reports from the same chat\n8) Run automated Colab for a saved report\n9) Repair a selected report\n10) Open reports library\n11) Open a report folder or Excel\n12) Audio to readable text (no chat required)\n0) Exit"
+            "\nCHAT DOCUMENTATION\n1) Start a separate new report\n2) Continue processing a saved backup\n3) Import downloaded Colab results\n4) Rebuild Excel from saved results\n5) Text correction: ChatGPT account / API key\n6) Complete capture of a selected report\n7) Consolidate reports from the same chat\n8) Run automated Colab for a saved report\n9) Repair a selected report\n10) Open reports library\n11) Open a report folder or Excel\n12) Audio to readable text (no chat required)\n0) Exit"
         )
         try:
             choice = input("Number: ").strip()

@@ -17,7 +17,11 @@ import webbrowser
 
 import httpx
 import jwt
-from response_results import complete_objects, validate_individual
+
+if __package__:
+    from .response_results import complete_objects, validate_individual
+else:
+    from response_results import complete_objects, validate_individual
 
 ROOT = Path(__file__).resolve().parent
 AUTH = "https://auth.openai.com"
@@ -250,8 +254,16 @@ def models():
     return available
 
 
-def correct(input_path, model, output_path, instructions_path=None):
-    catalog = models()
+def correct(
+    input_path,
+    model,
+    output_path,
+    instructions_path=None,
+    *,
+    token_provider=None,
+    catalog_provider=None,
+):
+    catalog = (catalog_provider or models)()
     if model not in {item["slug"] for item in catalog}:
         raise RuntimeError("Choose a model from the connected account catalog.")
     raw = json.loads(Path(input_path).read_text(encoding="utf8"))
@@ -284,7 +296,7 @@ def correct(input_path, model, output_path, instructions_path=None):
     if len(json.dumps(request).encode()) > 40000:
         raise RuntimeError("Pilot input is too large.")
     pieces, completed = [], False
-    token = access()
+    token = (token_provider or access)()
     stop_reason = None
     try:
         with httpx.Client(timeout=60) as client:

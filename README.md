@@ -22,7 +22,7 @@ attachments and uncertain speech before relying on a report.
 - Keeps separate reports, resumes interrupted work, and stages targeted repairs.
 - Transcribes voice messages and independent audio with Whisper large-v3, either
   locally or through Google Colab GPU. Original audio is retained.
-- Supports an optional, experimental text-correction integration. It is disabled
+- Supports optional text correction via ChatGPT account or an OpenAI API key. It is disabled
   by default; capture, imports and raw ASR work without it.
 
 ## Install and run
@@ -76,7 +76,7 @@ Checkpoints and support workbooks are retained for resuming the shared pipeline.
 
 ## Optional configuration
 
-Use menu **5** to connect ChatGPT, select a model and enable text correction
+Use menu **5** to choose ChatGPT account or OpenAI API key, select a model and enable text correction
 automatically. No manual configuration is needed for this setup.
 Copy `pipeline_config.example.json` to `pipeline_config.json` only for advanced
 overrides. This local configuration is ignored by Git. See

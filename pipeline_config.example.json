@@ -4,6 +4,7 @@
   "colab_browser": true,
   "model_root": "transcription_models",
   "correction_enabled": false,
+  "correction_provider": "chatgpt",
   "model": "",
   "manage_installed_folders": false
 }

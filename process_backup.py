@@ -221,7 +221,11 @@ def process(
     )
     prompt = Path(config.get("correction_prompt") or BASE / "correction_prompt.txt")
     pipeline_version = hashlib.sha256(
-        (config["model"] + prompt.read_text(encoding="utf8")).encode()
+        (
+            ("openai_api:" if config.get("correction_provider") == "openai_api" else "")
+            + config["model"]
+            + prompt.read_text(encoding="utf8")
+        ).encode()
     ).hexdigest()
     for task in work:
         task["input_hash"] = hashlib.sha256(
@@ -314,7 +318,7 @@ def process(
                     [
                         config["chatgpt_python"],
                         "-u",
-                        config["chatgpt_script"],
+                        config.get("correction_script", config["chatgpt_script"]),
                         "correct",
                         "--input",
                         str(source),

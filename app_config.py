@@ -14,6 +14,7 @@ def load_config(base):
         "chatgpt_script": str(base / "integrations" / "chatgpt_plan" / "chatgpt_plan.py"),
         "model": "",
         "correction_enabled": False,
+        "correction_provider": "chatgpt",
         "asr_backend": "local",
         "colab_browser": True,
         "choose_asr": True,
@@ -30,6 +31,13 @@ def load_config(base):
         if not value.is_absolute() and key not in ("voice_python", "chatgpt_python"):
             value = base / value
         config[key] = str(value)
+    if config["correction_provider"] not in ("chatgpt", "openai_api"):
+        raise ValueError("Unknown text correction connection method")
+    config["correction_script"] = (
+        str(base / "api_connection.py")
+        if config["correction_provider"] == "openai_api"
+        else config["chatgpt_script"]
+    )
     if config.get("correction_enabled") and not str(config.get("model", "")).strip():
         raise ValueError("Choose an available correction model in pipeline_config.json first")
     return config

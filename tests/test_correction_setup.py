@@ -11,6 +11,11 @@ MODELS = [("model-a", "Model A"), ("model-b", "Model B")]
 
 
 class SetupTests(unittest.TestCase):
+    def setUp(self):
+        selected = patch("correction_setup.choose_provider", return_value="chatgpt")
+        selected.start()
+        self.addCleanup(selected.stop)
+
     def test_first_use_logs_in_and_saves_automatically(self):
         with tempfile.TemporaryDirectory() as directory:
             base = Path(directory)

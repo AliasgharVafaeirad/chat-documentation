@@ -10,6 +10,7 @@ Guide/
 Reports.html
 START_HERE.txt
 pipeline_config.json
+pipeline_config.tmp
 report_labels.json
 available_models.json
 **/available_models.json

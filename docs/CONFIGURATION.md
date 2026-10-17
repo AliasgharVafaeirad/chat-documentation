@@ -11,6 +11,7 @@ Copy `pipeline_config.example.json` to ignored `pipeline_config.json` to customi
 - `colab_browser`: automate the Colab handoff or use manual upload/result import.
 - `model_root`: local model cache path, relative to this checkout or absolute.
 - `correction_enabled`: false by default.
+- `correction_provider`: `chatgpt` (account) or `openai_api` (explicit API key).
 - `model`: exact model identifier available to your optional correction connector.
 - `voice_python` / `chatgpt_python`: optional executable overrides.
 - `chatgpt_script`: optional replacement connector script.
@@ -18,7 +19,14 @@ Copy `pipeline_config.example.json` to ignored `pipeline_config.json` to customi
   migration hides implementation files and moves documentation; it is retained
   only for old installed layouts, not normal Git development.
 
-## Experimental text correction
+## Choose a text-correction connection
+
+Menu **5** offers **1) ChatGPT account** and **2) OpenAI API key**. Settings and
+model selection are saved by the program; no file editing is required. You can
+switch methods or disable correction from the same menu. There is no automatic
+fallback between them, including when one fails.
+
+### ChatGPT account
 
 The preserved `integrations/chatgpt_plan/` connector uses account login and writes
 credentials under its ignored `.private/` directory using Windows DPAPI. It has
@@ -26,7 +34,7 @@ not been made portable to non-Windows systems. It is not an official SDK and its
 authentication flow may be unavailable to a particular account or change.
 There is no API-key fallback and no promise of free or unlimited account access.
 
-Choose menu **5: Set up ChatGPT text correction**. The program checks an existing
+Choose menu **5 > ChatGPT account**. The program checks an existing
 connection first. If sign-in is needed, it opens the sign-in flow and continues
 automatically afterward. Select a model number (or press Enter for the displayed
 default). The program saves settings and enables correction automatically.
@@ -38,6 +46,25 @@ Choose menu 5 again to change the model, recheck the connection or turn correcti
 off. Cancelling or failing setup preserves existing settings. Do not commit
 credentials or account-specific model catalog files. If unavailable, raw Whisper
 transcripts remain usable.
+
+### OpenAI API key
+
+Choose **5 > OpenAI API key**, paste a key at the hidden prompt, and select a
+model from the returned catalog. The connection check only lists models; it
+does not generate test text. Successful model listing does not guarantee that
+every listed model supports a later Responses API request or that generation
+quota/credit is available.
+
+The key is encrypted with Windows DPAPI in `.private/openai_api_key.dpapi`,
+outside Git tracking. It is never saved in `pipeline_config.json` or command-line
+arguments. Press Enter to reuse a saved key; cancelling does not replace it.
+If no key is saved, `OPENAI_API_KEY` can be used as an environment fallback.
+An explicitly saved key takes precedence over that variable.
+
+This method uses the official [OpenAI API](https://developers.openai.com/api/reference/overview).
+Usage follows your API account's billing/credit and limits, separately from the
+ChatGPT account connection. A failed account request never silently uses API
+credit. No custom API endpoints or other providers are configured in this route.
 
 Correction transmits raw text and candidate neighboring chat text to the selected
 service. Independent audio has no neighboring chat context. Audio files are not

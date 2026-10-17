@@ -99,7 +99,13 @@ def consolidate(folders, destination):
 
     config = load_config(Path(__file__).parent)
     prompt = Path(__file__).with_name("correction_prompt.txt").read_text(encoding="utf8")
-    version = hashlib.sha256((config["model"] + prompt).encode()).hexdigest()
+    version = hashlib.sha256(
+        (
+            ("openai_api:" if config.get("correction_provider") == "openai_api" else "")
+            + config["model"]
+            + prompt
+        ).encode()
+    ).hexdigest()
     corrections = {}
     for task in tasks(rows, destination, whisper):
         for old, result in source_tasks:

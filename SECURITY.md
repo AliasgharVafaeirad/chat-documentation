@@ -8,6 +8,9 @@ files. Keep this repository separate from your personal application/data folders
 Only process conversations and recordings you are authorized to access. Local
 mode keeps audio on the machine. Colab uploads selected audio to your runtime.
 Optional correction transmits transcript/context text to the connected service.
+API keys entered through menu 5 are encrypted with Windows DPAPI under ignored
+`.private/`. They are not placed in local configuration or process arguments.
+Account and API methods require explicit selection; there is no paid fallback.
 
 ZIP imports reject escaping paths and unexpected entries. Uploaded GPU results
 are matched against local jobs and audio hashes. These checks do not prove that
